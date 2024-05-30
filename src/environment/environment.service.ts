@@ -51,9 +51,9 @@ export class EnvironmentService
             user: config.get('DATABASE_USER'),
             passwd: config.get('DATABASE_PASSWD'),
             parameters: config.get('DATABASE_PARAMETERS'),
-            url: "",
+            url: config.get('DATABASE_URL'),
         };
-
+        
         this.db.url=`${this.db.connector}://${this.db.user}:${this.db.passwd}@localhost:${this.db.port}/${this.db.name}${this.db.parameters}`;
     }
 
