@@ -1,17 +1,20 @@
-import { NestFactory } from '@nestjs/core';
+import { NestApplication, NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
+import { EnvironmentService } from './environment/environment.service';
 
 async function bootstrap()
 {
-  const port = 3000;
-  const app = await NestFactory.create(AppModule);
-  
-  Logger.log("Server running http://localhost:" + port,"Bootstrap");
+  const app: NestApplication = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe({whitelist:true}));
+  const env = app.get(EnvironmentService);
 
-  await app.listen(port);
+  Logger.log(`Server running http://${env.app.host}:${env.app.port}`, "Bootstrap");
+
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+  await app.listen(env.app.port);
 }
+
 bootstrap();
