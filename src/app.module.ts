@@ -6,7 +6,6 @@ import { BookmarkModule } from './bookmark/bookmark.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 import { EnvironmentModule } from './environment/environment.module';
-import { EnvironmentService } from './environment/environment.service';
 
 @Module({
   imports: [
