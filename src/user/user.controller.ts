@@ -6,11 +6,11 @@ import { JwtGuard } from 'src/auth/guard/jwt.guard';
 
 
 @Controller('users')
+@UseGuards(JwtGuard)
 export class UserController
 {
     
     @Get('me')
-    @UseGuards(JwtGuard)
     getMe(@GetUser() user: User)
     {
         return user;
