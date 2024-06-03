@@ -26,6 +26,7 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+[GitHub](https://github.com/vladwulf/nestjs-api-tutorial) - [Youtube Channel](https://www.youtube.com/watch?v=GHTA143_b-s&t=4160s) Nestjs API Tutorial
 ## Installation
 
 ```bash
@@ -43,6 +44,20 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# prisma studio
+$ npm run prisma:studio
+```
+
+## Running migration
+
+```bash
+# generate migration
+$ npm run migrate:dev
+
+# apply migration 
+$ npm run migrate:dev:deploy
+
 ```
 
 ## Test
