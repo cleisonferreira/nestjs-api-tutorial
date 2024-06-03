@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { JwtSignOptions } from "@nestjs/jwt";
 
 interface Application
 {
@@ -24,6 +25,7 @@ export class EnvironmentService
 {
     public app: Application;
     public db: DataBase;
+    public jwt: JwtSignOptions;
 
     constructor(config: ConfigService)
     {
@@ -31,8 +33,10 @@ export class EnvironmentService
 
         this.initApp(config);
         this.initDb(config);
+        this.initJwt(config);
 
     }
+
     private initApp(config: ConfigService)
     {
         this.app = {
@@ -53,8 +57,16 @@ export class EnvironmentService
             parameters: config.get('DATABASE_PARAMETERS'),
             url: config.get('DATABASE_URL'),
         };
-        
-        this.db.url=`${this.db.connector}://${this.db.user}:${this.db.passwd}@localhost:${this.db.port}/${this.db.name}${this.db.parameters}`;
+
+        this.db.url = `${this.db.connector}://${this.db.user}:${this.db.passwd}@localhost:${this.db.port}/${this.db.name}${this.db.parameters}`;
+    }
+
+    private initJwt(config: ConfigService)
+    {
+        this.jwt = {
+            secret: config.get('JWT_SECRET'),
+            expiresIn: config.get('JWT_EXPIRES_IN'),
+        };
     }
 
 }
