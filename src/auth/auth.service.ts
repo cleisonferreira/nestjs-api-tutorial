@@ -4,7 +4,7 @@ import { JwtService } from "@nestjs/jwt";
 import * as  argon from 'argon2';
 
 import { PrismaService } from "src/prisma/prisma.service";
-import { AuthDto } from "./dto";
+import { AuthDto, SignupDto } from "./dto";
 import { EnvironmentService } from "src/environment/environment.service";
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AuthService
         private jwt: JwtService
     ) { }
 
-    async signup(dto: AuthDto)
+    async signup(dto: SignupDto)
     {
         const hash = await argon.hash(dto.password);
 
@@ -24,8 +24,13 @@ export class AuthService
         {
             const user = await this.prisma.user.create({
                 data: {
-                    email: dto.email, hash,
+                    firstName:dto.firstName,
+                    lastName:dto.lastName,
+                    email: dto.email, 
+                    hash,
                 }, select: {
+                    firstName: true,
+                    lastName: true,
                     email: true,
                     createdAt: true,
                 }
