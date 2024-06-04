@@ -8,14 +8,15 @@ export class AuthController
 {
     constructor(private authService: AuthService) { }
 
-    @Post('singnup')
+    @HttpCode(HttpStatus.CREATED)
+    @Post('signup')
     signup(@Body() dto: SignupDto)
     {
         return this.authService.signup(dto);
     }
 
     @HttpCode(HttpStatus.OK)
-    @Post('singnin')
+    @Post('signin')
     signin(@Body() dto: AuthDto)
     {
         return this.authService.signin(dto);
