@@ -1,12 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { JwtSignOptions } from "@nestjs/jwt";
 
 interface Application
 {
     readonly name: string;
+    readonly protocol: string;
     readonly host: string;
     readonly port: number;
+    url: string;
 }
 
 interface DataBase
@@ -47,9 +48,13 @@ export class EnvironmentService
     {
         this.app = {
             name: config.get('APP_NAME'),
+            protocol: config.get('APP_PROTOCOL'),
             host: config.get('APP_HOST'),
-            port: config.get('APP_PORT')
+            port: config.get('APP_PORT'),
+            url: ''
         };
+
+        this.app.url = `${this.app.protocol}://${this.app.host}:${this.app.port}`;
     }
 
     private initDb(config: ConfigService)
@@ -74,5 +79,7 @@ export class EnvironmentService
             expiresIn: config.get('JWT_EXPIRES_IN'),
         };
     }
+
+    private baseUrpl;
 
 }
