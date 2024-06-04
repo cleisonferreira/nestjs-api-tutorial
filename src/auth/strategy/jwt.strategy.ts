@@ -8,6 +8,7 @@ import { EnvironmentService } from "src/environment/environment.service";
 @Injectable()
 export class JwtStategy extends PassportStrategy(Strategy, 'jwt')
 {
+
     constructor(
         private environment: EnvironmentService,
         private prisma: PrismaService
@@ -15,8 +16,8 @@ export class JwtStategy extends PassportStrategy(Strategy, 'jwt')
     {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            secretOrKey: environment.jwt.secret,
             ignoreExpiration: false,
-            secretOrKey: environment.jwt.secret
         });
     }
 

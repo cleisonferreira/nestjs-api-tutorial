@@ -20,12 +20,18 @@ interface DataBase
     url: string;
 }
 
+interface Jwt
+{
+    secret: string;
+    expiresIn: string;
+}
+
 @Injectable()
 export class EnvironmentService 
 {
     public app: Application;
     public db: DataBase;
-    public jwt: JwtSignOptions;
+    public jwt: Jwt;
 
     constructor(config: ConfigService)
     {
